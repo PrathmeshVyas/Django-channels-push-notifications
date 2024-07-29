@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  django:
+    container_name: django
+    build:
+      context: ./core
+    command: uvicorn core.asgi:application --port 8000 --workers 4 --log-level debug --reload
+    volumes:
+      - ./core:/usr/src/app
+    ports:
+      - 8000:8000
+    env_file:
+      - ./core/env_vars_django.txt
+    
+  rabbitmq:
+    image: rabbitmq:management
+    restart: always
+    container_name: rabbitmq
+    ports:
+      -5672:5672
+      -15672:15672
