@@ -1,6 +1,6 @@
 FROM python:3.11.4-alpine
 
-WORKDIR /usr/src/path
+WORKDIR /usr/src/app
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1

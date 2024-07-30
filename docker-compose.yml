@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   django:
-    container_name: django
+    container_name: django-channels
     build:
       context: ./core
     command: uvicorn core.asgi:application --port 8000 --workers 4 --log-level debug --reload
@@ -18,5 +18,29 @@ services:
     restart: always
     container_name: rabbitmq
     ports:
-      -5672:5672
-      -15672:15672
+      - 5672:5672
+      - 15672:15672
+
+  redis:
+    image: redis:7.0.11-alpine
+    ports:
+     - "6379:6379"
+
+  flower:
+    image: mher/flower
+    restart: always
+    ports:
+      - 5555:5555
+    environment:
+      - CELERY_BROKER_URL=ampq://guest:guest@rabbitmq:5672/
+
+  celery:
+    container_name: celery
+    restart: always
+    build:
+      context: ./core
+    command: celery --app=core worker -l INFO -B
+    volumes:
+      - ./core:/usr/src/app
+    env_file:
+      - ./core/env_vars_django.txt
