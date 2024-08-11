@@ -69,7 +69,7 @@ poetry-core==1.8.1
 poetry-plugin-export==1.6.0
 pre-commit==3.6.0
 prompt_toolkit==3.0.47
-psycopg2==2.9.9
+psycopg2-binary
 ptyprocess==0.7.0
 pycparser==2.21
 pydantic==2.4.2

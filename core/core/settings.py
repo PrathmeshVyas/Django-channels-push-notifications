@@ -139,5 +139,5 @@ CHANNEL_LAYERS = {
 #     "default": {"BACKEND": "channels.layers.InMemoryChannelLayer"},
 # }
 
-CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL", "ampq://guest:guest@rabbitmq:5672/")
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL", "amqp://guest:guest@rabbitmq:5672/")
 CELERY_RESULT_BACKEND = os.environ.get("CELERY_BACKEND", "redis://redis:6379/0")
